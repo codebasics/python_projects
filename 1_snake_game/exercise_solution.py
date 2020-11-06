@@ -108,8 +108,8 @@ class Game:
 
 
     def is_collision(self, x1, y1, x2, y2):
-        if x1 >= x2 and x1 <= x2 + SIZE-5:
-            if y1 >= y2 and y1 <= y2 + SIZE-5:
+        if x1 >= x2 and x1 < x2 + SIZE:
+            if y1 >= y2 and y1 < y2 + SIZE:
                 return True
         return False
 
