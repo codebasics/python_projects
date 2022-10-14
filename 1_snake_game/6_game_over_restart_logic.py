@@ -8,6 +8,7 @@ import random
 SIZE = 40
 BACKGROUND_COLOR = (110, 110, 5)
 
+
 class Apple:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
@@ -20,45 +21,46 @@ class Apple:
         pygame.display.flip()
 
     def move(self):
-        self.x = random.randint(1,24)*SIZE
-        self.y = random.randint(1,19)*SIZE
+        self.x = random.randint(1, 24) * SIZE
+        self.y = random.randint(1, 19) * SIZE
+
 
 class Snake:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
         self.image = pygame.image.load("resources/block.jpg").convert()
-        self.direction = 'down'
+        self.direction = "down"
 
         self.length = 1
         self.x = [40]
         self.y = [40]
 
     def move_left(self):
-        self.direction = 'left'
+        self.direction = "left"
 
     def move_right(self):
-        self.direction = 'right'
+        self.direction = "right"
 
     def move_up(self):
-        self.direction = 'up'
+        self.direction = "up"
 
     def move_down(self):
-        self.direction = 'down'
+        self.direction = "down"
 
     def walk(self):
         # update body
-        for i in range(self.length-1,0,-1):
-            self.x[i] = self.x[i-1]
-            self.y[i] = self.y[i-1]
+        for i in range(self.length - 1, 0, -1):
+            self.x[i] = self.x[i - 1]
+            self.y[i] = self.y[i - 1]
 
         # update head
-        if self.direction == 'left':
+        if self.direction == "left":
             self.x[0] -= SIZE
-        if self.direction == 'right':
+        if self.direction == "right":
             self.x[0] += SIZE
-        if self.direction == 'up':
+        if self.direction == "up":
             self.y[0] -= SIZE
-        if self.direction == 'down':
+        if self.direction == "down":
             self.y[0] += SIZE
 
         self.draw()
@@ -75,6 +77,7 @@ class Snake:
         self.x.append(-1)
         self.y.append(-1)
 
+
 class Game:
     def __init__(self):
         pygame.init()
@@ -89,7 +92,6 @@ class Game:
         self.snake = Snake(self.surface)
         self.apple = Apple(self.surface)
 
-
     def is_collision(self, x1, y1, x2, y2):
         if x1 >= x2 and x1 < x2 + SIZE:
             if y1 >= y2 and y1 < y2 + SIZE:
@@ -103,26 +105,34 @@ class Game:
         pygame.display.flip()
 
         # snake eating apple scenario
-        if self.is_collision(self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y):
+        if self.is_collision(
+            self.snake.x[0], self.snake.y[0], self.apple.x, self.apple.y
+        ):
             self.snake.increase_length()
             self.apple.move()
 
         # snake colliding with itself
         for i in range(2, self.snake.length):
-            if self.is_collision(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):
+            if self.is_collision(
+                self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]
+            ):
                 raise "Collision Occured"
 
     def display_score(self):
-        font = pygame.font.SysFont('arial',30)
-        score = font.render(f"Score: {self.snake.length}",True,(200,200,200))
-        self.surface.blit(score,(850,10))
+        font = pygame.font.SysFont("arial", 30)
+        score = font.render(f"Score: {self.snake.length}", True, (200, 200, 200))
+        self.surface.blit(score, (850, 10))
 
     def show_game_over(self):
         self.surface.fill(BACKGROUND_COLOR)
-        font = pygame.font.SysFont('arial', 30)
-        line1 = font.render(f"Game is over! Your score is {self.snake.length}", True, (255, 255, 255))
+        font = pygame.font.SysFont("arial", 30)
+        line1 = font.render(
+            f"Game is over! Your score is {self.snake.length}", True, (255, 255, 255)
+        )
         self.surface.blit(line1, (200, 300))
-        line2 = font.render("To play again press Enter. To exit press Escape!", True, (255, 255, 255))
+        line2 = font.render(
+            "To play again press Enter. To exit press Escape!", True, (255, 255, 255)
+        )
         self.surface.blit(line2, (200, 350))
 
         pygame.display.flip()
@@ -165,10 +175,9 @@ class Game:
                 pause = True
                 self.reset()
 
-            time.sleep(.25)
+            time.sleep(0.25)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     game = Game()
     game.run()
-
-
