@@ -3,6 +3,7 @@
 import pygame
 from pygame.locals import *
 
+
 class Snake:
     def __init__(self, surface):
         self.parent_screen = surface
@@ -63,8 +64,7 @@ class Game:
                 elif event.type == QUIT:
                     running = False
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     game = Game()
     game.run()
-
-
