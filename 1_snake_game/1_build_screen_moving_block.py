@@ -3,12 +3,14 @@
 import pygame
 from pygame.locals import *
 
+
 def draw_block():
     surface.fill((110, 110, 5))
     surface.blit(block, (block_x, block_y))
     pygame.display.flip()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     pygame.init()
 
     surface = pygame.display.set_mode((500, 500))
@@ -44,4 +46,3 @@ if __name__ == '__main__':
 
             elif event.type == QUIT:
                 running = False
-
